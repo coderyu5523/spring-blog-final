@@ -18,5 +18,11 @@ public class UserRequest {
         }
 
     }
+    @Data
+    public static class Login{
+
+        private String username;
+        private String password ;
+    }
 
 }
