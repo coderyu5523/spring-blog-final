@@ -1,10 +1,12 @@
 package shop.mtcoding.blog.board;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import shop.mtcoding.blog.user.User;
 
 import java.util.List;
 
@@ -13,6 +15,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardRepository boardRepository;
+    private final HttpSession session;
 
     @GetMapping("/" )
     public String index(HttpServletRequest request) {
@@ -24,8 +27,17 @@ public class BoardController {
 
     @GetMapping("/board/{id}")
     public String detail(@PathVariable int id, HttpServletRequest request){
-
+        User sessionUser = (User) session.getAttribute("sessionUser");
        BoardResponse.DetailDTO responseDTO = boardRepository.findByIdJoinUser(id);
+        Boolean isBoardOwner = false ;
+
+        if(sessionUser!=null){
+           if(responseDTO.getUserId() == sessionUser.getId()){
+               isBoardOwner = true ;
+           }
+           request.setAttribute("isBoardOwner",isBoardOwner);
+       }
+
         request.setAttribute("responseDTO",responseDTO);
         return "board/detail";
     }
