@@ -26,4 +26,18 @@ public class UserRepository {
         query.setParameter("password",requestDTO.getPassword());
        return (User) query.getSingleResult();
     }
+
+    public User findById(int userId) {
+        User user = em.find(User.class,userId);
+        return user ;
+
+    }
+
+    @Transactional
+    public User updateById(int sessionUserId,UserRequest.Update requestDTO) {
+        User user = findById(sessionUserId);
+        user.setPassword(requestDTO.getPassword());
+        user.setEmail(requestDTO.getEmail());
+        return user;
+    }
 }

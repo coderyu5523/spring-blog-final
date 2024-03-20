@@ -51,9 +51,6 @@ public class BoardController {
             request.setAttribute("isBoardOwner",isBoardOwner);
         }
 
-
-
-
         request.setAttribute("board",board);
 
         return "board/detail";

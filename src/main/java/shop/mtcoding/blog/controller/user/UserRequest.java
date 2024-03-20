@@ -25,4 +25,10 @@ public class UserRequest {
         private String password ;
     }
 
+    @Data
+    public static class Update{
+        private String password;
+        private String email ;
+    }
+
 }
