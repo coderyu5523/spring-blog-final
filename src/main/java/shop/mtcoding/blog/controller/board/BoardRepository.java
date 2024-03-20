@@ -42,4 +42,11 @@ public class BoardRepository {
         query.setParameter("id",boardId);
         query.executeUpdate();
     }
+    @Transactional
+    public void updateById(Integer boardId, BoardRequest.UpdateDTO requestDTO) {
+        Board board = findById(boardId);
+        board.setTitle(requestDTO.getTitle());
+        board.setContent(requestDTO.getContent());
+
+    }
 }
