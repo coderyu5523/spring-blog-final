@@ -26,4 +26,9 @@ public class BoardRepository {
          em.persist(requestDTO.toEntity());
 
     }
+
+    public Board findById(Integer boardId) {
+        Board board = em.find(Board.class,boardId);
+        return board;
+    }
 }
