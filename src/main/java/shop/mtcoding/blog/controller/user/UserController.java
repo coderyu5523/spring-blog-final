@@ -16,7 +16,7 @@ public class UserController {
     @PostMapping("/join")
     public String save(UserRequest.SaveDTO requestDTO){
         userRepository.save(requestDTO);
-        return "redirect:/login";
+        return "redirect:/login-form";
     }
 
     @PostMapping("/login")
@@ -45,6 +45,8 @@ public class UserController {
 
     @GetMapping("/logout")
     public String logout() {
+        session.invalidate();
         return "redirect:/";
+
     }
 }
