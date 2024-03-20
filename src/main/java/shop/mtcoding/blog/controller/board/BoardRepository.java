@@ -31,4 +31,15 @@ public class BoardRepository {
         Board board = em.find(Board.class,boardId);
         return board;
     }
+
+    @Transactional
+    public void deleteById(int boardId) {
+        String q = """
+                delete from Board b where b.id =:id
+                """;
+
+        Query query = em.createQuery(q);
+        query.setParameter("id",boardId);
+        query.executeUpdate();
+    }
 }
