@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import shop.mtcoding.blog.controller.user.User;
 
 import java.sql.Timestamp;
 
@@ -19,16 +20,18 @@ public class Board {
     private Integer id;
     private String title ;
     private String content ;
-    private Integer userId ;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user ;
 
     @CreationTimestamp
     private Timestamp createdAt;
 
     @Builder
-    public Board(Integer id, String title, String content, Integer userId) {
+    public Board(Integer id, String title, String content, User user) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.userId = userId;
+        this.user = user;
     }
 }
