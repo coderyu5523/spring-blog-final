@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -46,5 +47,19 @@ public class BoardRepository {
         responseDTO.setUsername(username);
 
         return responseDTO;
+    }
+
+    @Transactional
+    public void save(BoardRequest.saveDTO requestDTO,int userId) {
+        String q = """
+                insert into board_tb(title,content,user_id,created_at) values(?,?,?,now())
+                """;
+
+        Query query = em.createNativeQuery(q);
+        query.setParameter(1,requestDTO.getTitle());
+        query.setParameter(2,requestDTO.getContent());
+        query.setParameter(3,userId);
+        query.executeUpdate();
+
     }
 }
