@@ -6,7 +6,9 @@
     {{#isBoardOwner}}
         <div class="d-flex justify-content-end">
             <button class="btn btn-warning me-1">수정</button>
-            <button class="btn btn-danger">삭제</button>
+            <form action="/board/{{responseDTO.id}}/delete" method="post">
+                <button class="btn btn-danger">삭제</button>
+            </form>
         </div>
     {{/isBoardOwner}}
 
