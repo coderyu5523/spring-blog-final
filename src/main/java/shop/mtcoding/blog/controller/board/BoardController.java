@@ -28,8 +28,9 @@ public class BoardController {
 
     @PostMapping("/board/save")
     public String save(BoardRequest.SaveDTO requestDTO){
+        User sessionUser = (User) session.getAttribute("sessionUser");
 
-        boardRepository.save(requestDTO);
+        boardRepository.save(requestDTO,sessionUser);
         return "redirect:/";
     }
 

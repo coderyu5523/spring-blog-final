@@ -5,6 +5,7 @@ import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import shop.mtcoding.blog.controller.user.User;
 
 import java.util.List;
 
@@ -22,8 +23,8 @@ public class BoardRepository {
 
     }
     @Transactional
-    public void save(BoardRequest.SaveDTO requestDTO) {
-         em.persist(requestDTO.toEntity());
+    public void save(BoardRequest.SaveDTO requestDTO, User sessionUser) {
+         em.persist(requestDTO.toEntity(sessionUser));
 
     }
 
