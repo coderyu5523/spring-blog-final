@@ -17,11 +17,23 @@ public class UserRepository {
         String q = """
                 insert into user_tb(username,password,email,created_at) values(?,?,?,now())
                 """;
-        Query query = em.createNativeQuery(q,User.class);
+        Query query = em.createNativeQuery(q);
         query.setParameter(1,requestDTO.username);
         query.setParameter(2,requestDTO.password);
         query.setParameter(3,requestDTO.email);
         query.executeUpdate();
+
+    }
+
+    public User findByUsernameAndPassword(UserRequest.LoginDTO requestDTO) {
+        String q = """
+                select * from user_tb where username =? and password =? 
+                """;
+        Query query = em.createNativeQuery(q,User.class);
+        query.setParameter(1,requestDTO.getUsername());
+        query.setParameter(2,requestDTO.getPassword());
+        return (User) query.getSingleResult();
+
 
     }
 }
