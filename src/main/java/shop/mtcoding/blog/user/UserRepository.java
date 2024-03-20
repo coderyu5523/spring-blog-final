@@ -18,9 +18,9 @@ public class UserRepository {
                 insert into user_tb(username,password,email,created_at) values(?,?,?,now())
                 """;
         Query query = em.createNativeQuery(q);
-        query.setParameter(1,requestDTO.username);
-        query.setParameter(2,requestDTO.password);
-        query.setParameter(3,requestDTO.email);
+        query.setParameter(1,requestDTO.getUsername());
+        query.setParameter(2,requestDTO.getPassword());
+        query.setParameter(3,requestDTO.getEmail());
         query.executeUpdate();
 
     }
@@ -34,6 +34,28 @@ public class UserRepository {
         query.setParameter(2,requestDTO.getPassword());
         return (User) query.getSingleResult();
 
+
+    }
+
+    public User findById(int sessionUserId) {
+        String q = """
+                select * from user_tb where id =?
+                """;
+        Query query = em.createNativeQuery(q,User.class);
+        query.setParameter(1,sessionUserId);
+       return (User) query.getSingleResult();
+
+    }
+    @Transactional
+    public void update(int sessionUserId, UserRequest.UpdateDTO requestDTO) {
+        String q = """
+                update user_tb set password = ? ,email = ? where id =?
+                """;
+        Query query = em.createNativeQuery(q);
+        query.setParameter(1,requestDTO.getPassword());
+        query.setParameter(2,requestDTO.getEmail());
+        query.setParameter(3,sessionUserId);
+        query.executeUpdate();
 
     }
 }
