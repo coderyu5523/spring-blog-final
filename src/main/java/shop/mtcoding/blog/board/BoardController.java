@@ -49,7 +49,7 @@ public class BoardController {
     }
 
     @PostMapping("/board/save")
-    public String save(BoardRequest.saveDTO requestDTO){
+    public String save(BoardRequest.SaveDTO requestDTO){
         User sessionUser = (User) session.getAttribute("sessionUser");
         boardRepository.save(requestDTO,sessionUser.getId());
 
@@ -61,6 +61,20 @@ public class BoardController {
         boardRepository.deleteById(id);
 
         return "redirect:/";
+    }
+
+
+    @GetMapping("/board/{id}/update-form")
+    public String updateForm(@PathVariable int id,HttpServletRequest request){
+      Board board = boardRepository.findById(id);
+        request.setAttribute("board",board);
+        return "board/update-form";
+    }
+
+    @PostMapping("/board/{id}/update")
+    public String update(@PathVariable int id,BoardRequest.UpdateDTO requestDTO){
+        boardRepository.updateById(id,requestDTO);
+        return "redirect:/board/"+id ;
     }
 
 }

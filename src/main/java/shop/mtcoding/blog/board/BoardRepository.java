@@ -50,7 +50,7 @@ public class BoardRepository {
     }
 
     @Transactional
-    public void save(BoardRequest.saveDTO requestDTO,int userId) {
+    public void save(BoardRequest.SaveDTO requestDTO,int userId) {
         String q = """
                 insert into board_tb(title,content,user_id,created_at) values(?,?,?,now())
                 """;
@@ -71,6 +71,29 @@ public class BoardRepository {
         query.setParameter(1,boardId);
         query.executeUpdate();
 
+
+    }
+
+    public Board findById(int boardId) {
+        String q = """
+                select * from board_tb where id =? 
+                """;
+
+        Query query = em.createNativeQuery(q,Board.class);
+        query.setParameter(1, boardId);
+        Board board = (Board) query.getSingleResult();
+        return board;
+    }
+    @Transactional
+    public void updateById(int boardId,BoardRequest.UpdateDTO requestDTO) {
+        String q = """
+                update  board_tb set title = ? ,content =?  where id = ? 
+                """;
+        Query query = em.createNativeQuery(q);
+        query.setParameter(1,requestDTO.getTitle());
+        query.setParameter(2,requestDTO.getContent());
+        query.setParameter(3,boardId);
+        query.executeUpdate();
 
     }
 }
