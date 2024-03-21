@@ -4,8 +4,8 @@
 - 기능별로 commit하기
 - 목표 : v3 까지.
 
-## v1
-- 게시판 만들기
+## v1 (Native Query)
+- 회원제 게시판 만들기
 ## v2 (Persist Context & JPQL)
 - 회원제 게시판 만들기
 ## v3 (ORM (FetchType, builder))
