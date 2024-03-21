@@ -35,12 +35,4 @@
  <br>
   <br>
 
-## 의존성
 
-- Lombok
-- DevTools
-- Spring WEB
-- JPA
-- h2
-- MySQL
-- Mustache
