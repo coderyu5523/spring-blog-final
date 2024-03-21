@@ -1,8 +1,5 @@
 # 스프링부트 블로그 만들기
-`git checkout -b NAME`
-- 자기 이름으로 브랜치 따서 작성하기.
-- 기능별로 commit하기
-- 목표 : v3 까지.
+
 
 ## v1 (Native Query)
 - 회원제 게시판 만들기
