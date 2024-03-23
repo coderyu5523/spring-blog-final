@@ -40,8 +40,8 @@ public class BoardController {
     public String detail(@PathVariable Integer id,HttpServletRequest request) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Board board = boardService.findByIdJoinUser(sessionUser,id);
-        request.setAttribute("board",board);
+        BoardResponse.DetailDTO responseDTO = boardService.findByIdJoinUser(sessionUser,id);
+        request.setAttribute("board",responseDTO);
         return "board/detail";
     }
 }

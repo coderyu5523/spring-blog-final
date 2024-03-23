@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.mtcoding.blog._core.err.exception.Exception404;
 import shop.mtcoding.blog.user.User;
 
 import java.util.List;
@@ -24,8 +25,9 @@ public class BoardService {
     }
 
 
-    public Board findByIdJoinUser(User sessionUser, Integer boardId) {
-      Board board = boardJPARepository.findByIdJoinUser(boardId);
-      return board ;
+    public BoardResponse.DetailDTO findByIdJoinUser(User sessionUser, Integer boardId) {
+      Board board = boardJPARepository.findByIdJoinUser(boardId).orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
+
+      return new BoardResponse.DetailDTO(board,sessionUser) ;
     }
 }
