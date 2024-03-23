@@ -20,8 +20,8 @@ public class BoardService {
        return boardList;
     }
     @Transactional
-    public void save(BoardRequest.SaveDTO requestDTO) {
-        boardJPARepository.save(requestDTO.toEntity());
+    public void save(BoardRequest.SaveDTO requestDTO,User sessionUser) {
+        boardJPARepository.save(requestDTO.toEntity(sessionUser));
     }
 
 
@@ -29,5 +29,10 @@ public class BoardService {
       Board board = boardJPARepository.findByIdJoinUser(boardId).orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
 
       return new BoardResponse.DetailDTO(board,sessionUser) ;
+    }
+    @Transactional
+    public void deleteById(Integer id) {
+      boardJPARepository.findById(id).orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
+      boardJPARepository.deleteById(id);
     }
 }

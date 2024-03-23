@@ -1,6 +1,7 @@
 package shop.mtcoding.blog.board;
 
 import lombok.Data;
+import shop.mtcoding.blog.user.User;
 
 public class BoardRequest {
 
@@ -9,11 +10,14 @@ public class BoardRequest {
         private String title ;
         private String content ;
 
-        public Board toEntity(){
+        public Board toEntity(User user){
             return Board.builder()
                     .title(title)
                     .content(content)
+                    .user(user)
                     .build();
+
         }
     }
-}
+    }
+

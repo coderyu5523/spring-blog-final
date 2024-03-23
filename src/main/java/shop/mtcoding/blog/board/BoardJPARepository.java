@@ -10,4 +10,6 @@ public interface BoardJPARepository extends JpaRepository<Board,Integer>{
 
     @Query("select b from Board b join fetch b.user where b.id = :id")
     Optional<Board> findByIdJoinUser(@Param("id") Integer id);
+
+    Optional<Board> findById(@Param("id") Integer id);
 }

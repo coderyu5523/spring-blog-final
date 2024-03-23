@@ -31,11 +31,12 @@ public class Board {
 
 
     @Builder
-    public Board(Integer id, String title, String content, Timestamp createdAt) {
+    public Board(Integer id, String title, String content, Timestamp createdAt,User user) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
+        this.user =user;
     }
 }
 
