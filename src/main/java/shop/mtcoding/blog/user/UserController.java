@@ -1,10 +1,33 @@
 package shop.mtcoding.blog.user;
 
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import shop.mtcoding.blog._core.err.exception.Exception400;
 
+@RequiredArgsConstructor
 @Controller
 public class UserController {
+    private final UserService userService;
+    private final HttpSession session;
+
+    @PostMapping("/join")
+    public String join(UserRequest.SaveDTO requestDTO){
+
+        User user = null;
+        try {
+            user = userService.save(requestDTO);
+            session.setAttribute("sessionUser",user);
+        } catch (Exception e) {
+            throw new Exception400("동일한 유저네임이 존재합니다.");
+        }
+
+
+
+        return "redirect:/";
+    }
 
     @GetMapping("/join-form")
     public String joinForm() {
