@@ -35,4 +35,14 @@ public class BoardService {
       boardJPARepository.findById(id).orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
       boardJPARepository.deleteById(id);
     }
+    @Transactional
+    public void updateById(Integer id, User sessionUser,BoardRequest.UpdateDTO requestDTO) {
+        Board board = boardJPARepository.findById(id).orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
+        board.Update(requestDTO.getTitle(),requestDTO.getContent());
+    }
+
+    public Board findById(Integer id) {
+        Board board = boardJPARepository.findById(id).orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
+        return board ;
+    }
 }

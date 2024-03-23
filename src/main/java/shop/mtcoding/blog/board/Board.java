@@ -38,6 +38,11 @@ public class Board {
         this.createdAt = createdAt;
         this.user =user;
     }
+
+    public void Update(String title,String content){
+        this.title = title;
+        this.content = content;
+    }
 }
 
 

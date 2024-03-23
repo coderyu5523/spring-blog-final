@@ -39,7 +39,6 @@ public class BoardController {
 
     @GetMapping("/board/{id}")
     public String detail(@PathVariable Integer id,HttpServletRequest request) {
-
         User sessionUser = (User) session.getAttribute("sessionUser");
         BoardResponse.DetailDTO responseDTO = boardService.findByIdJoinUser(sessionUser,id);
         request.setAttribute("board",responseDTO);
@@ -52,4 +51,20 @@ public class BoardController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/board/{id}/update-form")
+    public String updateForm(@PathVariable Integer id,HttpServletRequest request){
+        Board board = boardService.findById(id);
+        request.setAttribute("board",board);
+        return "/board/update-form" ;
+    }
+
+    @PostMapping("/board/{id}/update")
+    public String update(@PathVariable Integer id,BoardRequest.UpdateDTO requestDTO){
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        boardService.updateById(id,sessionUser,requestDTO);
+
+        return "redirect:/board/"+id;
+    }
+
 }
