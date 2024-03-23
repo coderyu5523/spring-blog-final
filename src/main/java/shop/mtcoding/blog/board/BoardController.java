@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -19,6 +20,12 @@ public class BoardController {
         List<Board> boardList = boardService.findAll();
         request.setAttribute("boardList",boardList);
         return "index";
+    }
+
+    @PostMapping("/board/save")
+    public String save(BoardRequest.SaveDTO requestDTO){
+        boardService.save(requestDTO);
+        return "redirect:/";
     }
 
     @GetMapping("/board/save-form")
