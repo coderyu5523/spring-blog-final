@@ -24,7 +24,7 @@ public class User {
     @CreationTimestamp // persistance centext 에 전달될 때 자동으로 주입됨.
     private Timestamp createdAt;
 
-    @Builder //빌더 패턴
+    @Builder
     public User(int id, String username, String password, String email, Timestamp createdAt) {
         this.id = id;
         this.username = username;
