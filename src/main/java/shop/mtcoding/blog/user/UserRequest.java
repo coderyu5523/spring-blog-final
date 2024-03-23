@@ -18,4 +18,10 @@ public class UserRequest {
                     .build();
         }
     }
+
+    @Data
+    public static class Login{
+        private String username;
+        private String password;
+    }
 }
