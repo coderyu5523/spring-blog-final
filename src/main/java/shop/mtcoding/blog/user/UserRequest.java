@@ -20,8 +20,16 @@ public class UserRequest {
     }
 
     @Data
-    public static class Login{
+    public static class LoginDTO{
         private String username;
         private String password;
     }
-}
+    @Data
+    public static class UpdateDTO{
+        private String password ;
+        private String email ;
+
+        }
+    }
+
+

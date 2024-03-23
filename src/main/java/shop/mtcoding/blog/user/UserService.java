@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.blog._core.err.exception.Exception401;
+import shop.mtcoding.blog._core.err.exception.Exception404;
 
 @RequiredArgsConstructor
 @Service
@@ -22,5 +23,16 @@ public class UserService {
                .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
 
        return user ;
+    }
+
+    public User findById(int sessionUserId) {
+       User user = userJPARepository.findById(sessionUserId).orElseThrow(() -> new Exception404("조회된 데이터가 없습니다."));
+
+        return user;
+    }
+    @Transactional
+    public void updateById(UserRequest.UpdateDTO requestDTO, int sessionUserId) {
+       User user = userJPARepository.findById(sessionUserId).orElseThrow(() -> new Exception404("조회된 데이터가 없습니다."));
+       user.update(requestDTO.getPassword(),requestDTO.getEmail());
     }
 }

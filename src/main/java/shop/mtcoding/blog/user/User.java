@@ -16,9 +16,9 @@ import java.sql.Timestamp;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id ;
+    private int id;
     @Column(unique = true)
-    private String username ;
+    private String username;
     private String password;
     private String email;
     @CreationTimestamp // persistance centext 에 전달될 때 자동으로 주입됨.
@@ -31,6 +31,12 @@ public class User {
         this.password = password;
         this.email = email;
         this.createdAt = createdAt;
+    }
+
+    public void update(String password,String email) {
+        this.password = password ;
+        this.email = email;
+
     }
 }
 
